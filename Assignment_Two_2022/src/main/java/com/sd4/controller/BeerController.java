@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.domain.Sort;
 
 @RestController
+@RequestMapping("/beer")
 public class BeerController {
 
 
@@ -21,17 +22,21 @@ public class BeerController {
     BeerRepository beerRepository;
 
     @RequestMapping(value="/", method=RequestMethod.GET)
-    public List<Beer> readBeers() {
-        System.out.println("this has gone her");
+    public List<Beer> GetBeers() {
         return beerRepository.findAll(Sort.by("name").ascending());    
     }
+
+    @RequestMapping(value="/{beerId}", method=RequestMethod.GET)
+    public Beer GetBeer(@PathVariable(value = "beerId") Long id){
+        return beerRepository.findById(id).get();
+        }
     
-    @RequestMapping(value="/beers/{beerId}", method=RequestMethod.PUT)
+    @RequestMapping(value="/{beerId}", method=RequestMethod.PUT)
     public Beer readBeers(@PathVariable(value = "beerID") Long id, @RequestBody Beer beerDetails) {
         return beerRepository.save(beerDetails);
     }
     
-    @RequestMapping(value="/beers/{beerId}", method=RequestMethod.DELETE)
+    @RequestMapping(value="/{beerId}", method=RequestMethod.DELETE)
     public void deleteBeers(@PathVariable(value = "beerID") Long id) {
         beerRepository.deleteById(id);
     }
