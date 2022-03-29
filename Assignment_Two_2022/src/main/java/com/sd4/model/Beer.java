@@ -51,4 +51,17 @@ public class Beer implements Serializable {
     private Double buy_price;
     private Double sell_price;
 
+
+    public long getID(){
+        return id;
+    }
+    public String getName(){
+        return name;
+    }
+    public double getBuy_Price(){
+        return buy_price;
+    }
+    public double getSell_Price(){
+        return sell_price;
+    }
 }
