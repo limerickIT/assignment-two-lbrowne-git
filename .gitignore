@@ -1,1 +1,3 @@
-Assignment_Two_2022/target/classes/*
+Assignment_Two_2022/target/classes/com/sd4/model/*
+Assignment_Two_2022/target/classes/com/sd4/model/Brewery.class
+Assignment_Two_2022/target/classes/com/sd4/model/Beer.class
