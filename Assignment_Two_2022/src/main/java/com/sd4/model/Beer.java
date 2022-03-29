@@ -12,6 +12,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.sd4.repository.BeerRepository;
+import com.sd4.repository.BreweryRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.Links;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +36,7 @@ import javax.persistence.Lob;
 @ToString
 @Entity
 public class Beer implements Serializable {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -51,6 +59,7 @@ public class Beer implements Serializable {
     private Double buy_price;
     private Double sell_price;
 
+    public Link link;
 
     public long getID(){
         return id;
@@ -63,5 +72,13 @@ public class Beer implements Serializable {
     }
     public double getSell_Price(){
         return sell_price;
+    }
+
+    public Link getLink(){
+        return link;
+    }
+
+    public long getBreweryID(){
+        return brewery_id;
     }
 }

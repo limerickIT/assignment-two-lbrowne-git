@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.Link;
+
 
 @RestController
 @RequestMapping("/beer")
@@ -28,7 +30,9 @@ public class BeerController {
 
     @RequestMapping(value="/{beerId}", method=RequestMethod.GET)
     public Beer GetBeer(@PathVariable(value = "beerId") Long id){
-        return beerRepository.findById(id).get();
+        Beer beer = beerRepository.findById(id).get();
+        beer.link = Link.of("/beer/"+beer.getID());
+        return beer;
         }
     
     @RequestMapping(value="/{beerId}", method=RequestMethod.PUT)
