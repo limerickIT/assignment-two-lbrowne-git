@@ -56,4 +56,18 @@ public class Brewery implements Serializable {
     
     private Double credit_limit;
     private String email;
+
+    public String getName(){
+        return name;
+    }
+    public String getAddress(){
+        return address1+"\n"+address2+"\n";
+    }
+    public String getCity(){
+        return city;
+    }
+
+    public String getCode(){
+        return code;
+    }
 }
