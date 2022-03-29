@@ -1,5 +1,6 @@
 package com.sd4.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.google.zxing.WriterException;
@@ -50,8 +51,13 @@ public class BreweryController {
         vCard += "FN:" + brewery.getName();
         vCard += "TEL:"+ brewery.getCode();
         vCard += "END:VCARD";
+        try {
+            QRGenerator.GenerateQRCodeImage(vCard);
+            return QRGenerator.GetQRCodeImage(vCard);
 
-        return QRGenerator.GenerateQRCodeImage(vCard);
+        } catch (IOException e) {
+            return "Error occured attempting to generate image:\n"+e.getMessage();
+        }
 
     }
 
