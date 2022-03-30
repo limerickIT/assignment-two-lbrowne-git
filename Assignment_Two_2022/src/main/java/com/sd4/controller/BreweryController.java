@@ -24,6 +24,7 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 
 
 @RestController
@@ -50,21 +51,26 @@ public class BreweryController {
     }
 
     @ResponseBody
-    @RequestMapping(value="/qr/{breweryId}", method=RequestMethod.GET)
-    public Object readBreweryQR(@PathVariable(value = "breweryId") Long id) throws WriterException {
+    @RequestMapping(value="/qr/{breweryId}", method=RequestMethod.GET,  produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] readBreweryQR(@PathVariable(value = "breweryId") Long id) throws WriterException {
         System.out.println("hello");
         Brewery brewery = breweryRepository.findById(id).get();
-        String vCard = "BEGIN:VCARD";
-        vCard += "FN:" + brewery.getName();
-        vCard += "TEL:"+ brewery.getCode();
-        vCard += "END:VCARD";
+        String vCard = "BEGIN:VCARD\n"
+             +"VERSION:3.0"
+             +"\nFN:" + brewery.getName()
+             +"\nTEL:"+ brewery.getPhone()
+             +"\nADR:"+brewery.getAddress()
+             +"\nEMAIL:"+brewery.getEmail()
+             +"\nURL:"+brewery.getWebsite()
+             + "\nEND:VCARD";
         try {
-            QRGenerator.GenerateQRCodeImage(vCard);
-            return QRGenerator.GetQRCodeImage(vCard);
+            return QRGenerator.GenerateQRCodeImage(vCard);
+            
 
         } catch (IOException e) {
-            return "Error occured attempting to generate image:\n"+e.getMessage();
+            //throw "Error occured attempting to generate image:\n"+e.getMessage();
         }
+        return null;
 
     }
 

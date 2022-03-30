@@ -60,6 +60,9 @@ public class Brewery implements Serializable {
     public String getName(){
         return name;
     }
+    public String getWebsite() {
+        return website;
+    }
     public String getAddress(){
         return address1+"\n"+address2+"\n";
     }
@@ -67,7 +70,14 @@ public class Brewery implements Serializable {
         return city;
     }
 
+    public String getPhone(){
+        return phone;
+    }
+
     public String getCode(){
         return code;
+    }
+    public String getEmail() {
+        return email;
     }
 }
