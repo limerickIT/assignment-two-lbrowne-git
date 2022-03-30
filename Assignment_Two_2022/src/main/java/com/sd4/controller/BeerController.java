@@ -4,15 +4,18 @@ import java.util.List;
 
 import com.sd4.model.Beer;
 import com.sd4.repository.BeerRepository;
+import com.sd4.utilities.ImageHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.Link;
+import org.springframework.http.MediaType;
 
 
 @RestController
@@ -24,7 +27,7 @@ public class BeerController {
     BeerRepository beerRepository;
 
     @RequestMapping(value="/", method=RequestMethod.GET)
-    public List<Beer> GetBeers() {
+    public List<Beer> GetAllBeers() {
         return beerRepository.findAll(Sort.by("name").ascending());    
     }
 
@@ -33,15 +36,47 @@ public class BeerController {
         Beer beer = beerRepository.findById(id).get();
         beer.link = Link.of("/beer/"+beer.getID());
         return beer;
-        }
+    }
     
+    @RequestMapping(value="/{beerId}", method=RequestMethod.POST)
+    public String AddBeer(@PathVariable(value = "beerId") @RequestBody Beer beer){
+        beer.link = Link.of("/beer/"+beer.getID());
+        if(!beerRepository.save(beer).equals(null)){
+            return "Beer has been added to db";
+        }
+        else{
+            return "beer has not been added";
+        }
+
+    }
     @RequestMapping(value="/{beerId}", method=RequestMethod.PUT)
-    public Beer readBeers(@PathVariable(value = "beerID") Long id, @RequestBody Beer beerDetails) {
+    public Beer PutBeer(@PathVariable(value = "beerId") Long id, @RequestBody Beer beerDetails) {
         return beerRepository.save(beerDetails);
     }
     
     @RequestMapping(value="/{beerId}", method=RequestMethod.DELETE)
-    public void deleteBeers(@PathVariable(value = "beerID") Long id) {
+    public void DeleteBeers(@PathVariable(value = "beerId") Long id) {
         beerRepository.deleteById(id);
     }
+
+    @RequestMapping(value="/image/{beerId}", method=RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE )
+    public Object GetImage(@PathVariable(value ="beerId") Long id, @RequestParam String size){
+        if(size.equals("large") || size.equals("thumbs") ){
+            return ImageHandler.GetImage("/"+size+"/"+id);
+        }
+        else{
+            return "The size paramater can only be large or thumbs";
+        }
+    }
+    @RequestMapping(value="/images/", method=RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE )
+    public Object GetImages(@RequestParam String size){
+        if(size.equals("large") || size.equals("thumbs") ){
+            return ImageHandler.GetImage("/"+size+"/");
+        }
+        else{
+            return "The size paramater can only be large or thumbs";
+        }
+    }
+
+
 }
