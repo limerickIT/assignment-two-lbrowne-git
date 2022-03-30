@@ -6,8 +6,8 @@ import java.util.List;
 import com.google.zxing.WriterException;
 import com.sd4.model.Brewery;
 import com.sd4.repository.BreweryRepository;
-import com.sd4.utilities.GeoMap;
-import com.sd4.utilities.QRGenerator;
+import com.sd4.utilities.GeoMapHandler;
+import com.sd4.utilities.QRGeneratorHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,19 +41,18 @@ public class BreweryController {
         return breweryRepository.findAll(Sort.by("name").ascending());    
     }
 
-    @RequestMapping(value="/maps/{breweryId}", method=RequestMethod.GET)
+    @RequestMapping(value="/maps/{breweryId}", method=RequestMethod.GET,  produces = MediaType.IMAGE_JPEG_VALUE)
     public Object readBreweryMap(@PathVariable(value = "breweryId") Long id) {
         
         
         Brewery brewery = breweryRepository.findById(id).get();
         
-        return GeoMap.GenerateMap(brewery.getAddress());
+        return GeoMapHandler.GenerateMap(brewery.getAddress());
     }
 
     @ResponseBody
     @RequestMapping(value="/qr/{breweryId}", method=RequestMethod.GET,  produces = MediaType.IMAGE_JPEG_VALUE)
-    public byte[] readBreweryQR(@PathVariable(value = "breweryId") Long id) throws WriterException {
-        System.out.println("hello");
+    public Object readBreweryQR(@PathVariable(value = "breweryId") Long id) throws WriterException {
         Brewery brewery = breweryRepository.findById(id).get();
         String vCard = "BEGIN:VCARD\n"
              +"VERSION:3.0"
@@ -64,13 +63,11 @@ public class BreweryController {
              +"\nURL:"+brewery.getWebsite()
              + "\nEND:VCARD";
         try {
-            return QRGenerator.GenerateQRCodeImage(vCard);
-            
-
-        } catch (IOException e) {
-            //throw "Error occured attempting to generate image:\n"+e.getMessage();
+            return QRGeneratorHandler.GenerateQRCodeImage(vCard);
         }
-        return null;
+        catch (IOException e) {
+            return "Error occured attempting to generate image:\n"+e.getMessage();
+        }
 
     }
 
