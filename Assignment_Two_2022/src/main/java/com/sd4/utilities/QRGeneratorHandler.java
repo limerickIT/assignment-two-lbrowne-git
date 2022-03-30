@@ -3,19 +3,16 @@ package com.sd4.utilities;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 
 import javax.imageio.ImageIO;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
-import com.google.zxing.client.j2se.MatrixToImageConfig;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
-public class QRGenerator {
+public class QRGeneratorHandler {
 
     private final static int width = 400;
     private final static int height = 400;
@@ -37,13 +34,4 @@ public class QRGenerator {
         ImageIO.write(bi, "JPG", bArrayOutputStream);
         return bArrayOutputStream.toByteArray();
     }
-
-    /**
-     * 
-     * @param text      
-     * @return
-     * @throws WriterException
-     * @throws IOException
-     */
-    
 }

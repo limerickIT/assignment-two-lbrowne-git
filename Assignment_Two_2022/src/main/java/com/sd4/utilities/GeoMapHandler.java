@@ -6,7 +6,7 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.model.GeocodingResult;
 
-public class GeoMap {
+public class GeoMapHandler {
 
     public final static String APIKey ="AIzaSyDfCEKfnlzeYt-r2FAIAFeiCybD1B-5DTA"; 
     
@@ -15,6 +15,7 @@ public class GeoMap {
      * 
      * @param address
      * @return  GoogleMap Json
+     * 
      */
 
     public static Object GenerateMap(String address){
