@@ -19,11 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.maps.*;
-import com.google.maps.errors.ApiException;
-import com.google.maps.model.GeocodingResult;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;

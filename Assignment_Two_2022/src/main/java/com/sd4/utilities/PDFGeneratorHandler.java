@@ -1,6 +1,5 @@
 package com.sd4.utilities;
 
-import java.io.File;
 import java.io.IOException;  
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfWriter;

@@ -9,7 +9,6 @@ public class GeoMapHandler {
     private final static String APIKey ="AIzaSyDfCEKfnlzeYt-r2FAIAFeiCybD1B-5DTA"; 
     private final static String base_url = "https://maps.googleapis.com/maps/api/staticmap?";
     private final static int zoom = 14;
-    private final static String city = "Limerick";
 
     /** Generates google map using api stored in class
      * 
