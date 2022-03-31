@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sd4.model.Beer;
 import com.sd4.repository.BeerRepository;
-import com.sd4.utilities.ImageHandler;
+import com.sd4.utilities.ContentHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,21 +62,14 @@ public class BeerController {
     @RequestMapping(value="/image/{beerId}", method=RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE )
     public Object GetImage(@PathVariable(value ="beerId") Long id, @RequestParam String size){
         if(size.equals("large") || size.equals("thumbs") ){
-            return ImageHandler.GetImage("/"+size+"/"+id);
+            return ContentHandler.GetImage("/"+size+"/"+id);
         }
         else{
             return "The size paramater can only be large or thumbs";
         }
     }
-    @RequestMapping(value="/images/", method=RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE )
-    public Object GetImages(@RequestParam String size){
-        if(size.equals("large") || size.equals("thumbs") ){
-            return ImageHandler.GetImage("/"+size+"/");
-        }
-        else{
-            return "The size paramater can only be large or thumbs";
-        }
+    @RequestMapping(value="/images/", method=RequestMethod.GET )
+    public Object GetImages(){
+            return ContentHandler.GetCompressedFolder("images");
     }
-
-
 }
