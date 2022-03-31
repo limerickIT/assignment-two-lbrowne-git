@@ -80,4 +80,8 @@ public class Brewery implements Serializable {
     public String getEmail() {
         return email;
     }
+
+    public String getCountry(){
+        return country;
+    }
 }

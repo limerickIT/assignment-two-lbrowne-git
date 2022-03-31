@@ -3,6 +3,8 @@ package com.sd4.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.google.zxing.WriterException;
 import com.sd4.model.Brewery;
 import com.sd4.repository.BreweryRepository;
@@ -42,12 +44,9 @@ public class BreweryController {
     }
 
     @RequestMapping(value="/maps/{breweryId}", method=RequestMethod.GET,  produces = MediaType.IMAGE_JPEG_VALUE)
-    public Object readBreweryMap(@PathVariable(value = "breweryId") Long id) {
-        
-        
+    public void readBreweryMap(HttpServletResponse response, @PathVariable(value = "breweryId") Long id) throws IOException {
         Brewery brewery = breweryRepository.findById(id).get();
-        
-        return GeoMapHandler.GenerateMap(brewery.getAddress());
+        GeoMapHandler.GenerateMap(response, brewery.getAddress()+","+brewery.getCity()+","+brewery.getCountry());
     }
 
     @ResponseBody

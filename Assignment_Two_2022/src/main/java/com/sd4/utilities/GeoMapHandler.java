@@ -1,25 +1,32 @@
 package com.sd4.utilities;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
-import com.google.maps.model.GeocodingResult;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 
 public class GeoMapHandler {
 
-    public final static String APIKey ="AIzaSyDfCEKfnlzeYt-r2FAIAFeiCybD1B-5DTA"; 
-    
+    private final static String APIKey ="AIzaSyDfCEKfnlzeYt-r2FAIAFeiCybD1B-5DTA"; 
+    private final static String base_url = "https://maps.googleapis.com/maps/api/staticmap?";
+    private final static int zoom = 14;
+    private final static String city = "Limerick";
 
     /** Generates google map using api stored in class
      * 
      * @param address
      * @return  GoogleMap Json
+     * @throws IOException
      * 
      */
 
-    public static Object GenerateMap(String address){
-        GeoApiContext context = new GeoApiContext.Builder()
+    public static void GenerateMap(HttpServletResponse response, String address) throws IOException{
+     
+        String url = base_url + "center=" + address + "&zoom=" + zoom + "&size=500x500&key=" + APIKey;
+        System.out.println(url);
+        response.sendRedirect(url);
+
+/* Initial attempt using GeoAPI strugglged to implement Static Map API 
+     GeoApiContext context = new GeoApiContext.Builder()
                                     .apiKey(APIKey)
                                     .build();
         GeocodingResult[] results;
@@ -29,10 +36,8 @@ public class GeoMapHandler {
         catch (Exception e) {
             return "<b>Error</b> Attempting to locate Map Location\n"+e.getMessage();
 
-        }
-        context.shutdown();
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return gson.toJson(results[0].addressComponents);
+    }*/
+
 
     }
 }
