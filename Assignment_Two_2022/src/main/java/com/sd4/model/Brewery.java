@@ -15,6 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.springframework.hateoas.RepresentationModel;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +34,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Entity
-public class Brewery implements Serializable {
+public class Brewery  extends RepresentationModel<Brewery> implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -74,6 +77,9 @@ public class Brewery implements Serializable {
         return phone;
     }
 
+    public long getID(){
+        return id;
+    }
     public String getCode(){
         return code;
     }

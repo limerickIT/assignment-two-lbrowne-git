@@ -13,12 +13,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sd4.repository.BeerRepository;
 import com.sd4.repository.BreweryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Links;
+import org.springframework.hateoas.RepresentationModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,7 +38,7 @@ import javax.persistence.Lob;
 @AllArgsConstructor
 @ToString
 @Entity
-public class Beer implements Serializable {
+public class Beer extends RepresentationModel<Beer> implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -59,7 +62,6 @@ public class Beer implements Serializable {
     private Double buy_price;
     private Double sell_price;
 
-    public Link link;
 
     public long getID(){
         return id;
@@ -74,11 +76,8 @@ public class Beer implements Serializable {
         return sell_price;
     }
 
-    public Link getLink(){
-        return link;
-    }
-
     public long getBreweryID(){
         return brewery_id;
+    
     }
 }
