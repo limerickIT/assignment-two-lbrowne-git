@@ -1,5 +1,6 @@
 package com.sd4.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.sd4.model.Beer;
@@ -62,14 +63,14 @@ public class BeerController {
     @RequestMapping(value="/image/{beerId}", method=RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE )
     public Object GetImage(@PathVariable(value ="beerId") Long id, @RequestParam String size){
         if(size.equals("large") || size.equals("thumbs") ){
-            return ContentHandler.GetImage("/"+size+"/"+id);
+            return ContentHandler.GetImage(size+"/"+id);
         }
         else{
             return "The size paramater can only be large or thumbs";
         }
     }
-    @RequestMapping(value="/images/", method=RequestMethod.GET )
-    public Object GetImages(){
-            return ContentHandler.GetCompressedFolder("images");
+    @RequestMapping(value="/images/", method=RequestMethod.GET,  produces="application/zip" )
+    public Object GetImages() throws IOException{
+            return ContentHandler.GetCompressedFolder("");
     }
 }
