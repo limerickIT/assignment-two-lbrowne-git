@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -39,19 +38,28 @@ public class ContentHandler {
             else{
                 return null;
             }
-            }
-        catch (IOException e) {
+        }
+        catch(Exception e){
             return null;
         }
     }
 
-    public static byte[] GetCompressedFolder(String folder){
+    /** Returns a Compress zip file of the content at the hard coded directory or creates a zip if it does not exist
+     *
+     * 
+     * @param folder        can be used to specify the subdirectory
+     * @return              Byte Array representation of the zip file 
+     * @throws OException
+     */
+    public static byte[] GetCompressedFolder(String folder) throws IOException{
 
         if(folder.isEmpty()){
            folder =  ImageDir;
         }
         String sourceFile = folder;
         FileOutputStream fos;
+        File file = new File(ImageDir+"BeerImages.zip");
+        if(!file.exists())
         try {
             fos = new FileOutputStream(ImageDir+"BeerImages.zip");
             ZipOutputStream zipOut = new ZipOutputStream(fos);
@@ -59,14 +67,19 @@ public class ContentHandler {
             CompressDirectoryToZip(fileToZip, fileToZip.getName(), zipOut);
             zipOut.close();
             fos.close();
-            File file = new File(ImageDir+"BeerImages.zip");
-            return Files.readAllBytes(file.toPath());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return Files.readAllBytes(file.toPath());
     }
 
+    /** Creates a zip file of the content at the specified directory
+     *     taken from https://www.baeldung.com/java-compress-and-uncompress
+     * @param fileToZip
+     * @param fileName
+     * @param zipOut
+     * @throws IOException
+     */
     private static void CompressDirectoryToZip(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException{
         if(fileToZip.isHidden()) {
             return;
@@ -86,13 +99,21 @@ public class ContentHandler {
             return;
         }
         FileInputStream fis = new FileInputStream(fileToZip);
-        ZipEntry zipEntry = new ZipEntry(fileName);
-        zipOut.putNextEntry(zipEntry);
-        byte[] bytes = new byte[1024];
-        int length;
-        while ((length = fis.read(bytes)) >= 0) {
-            zipOut.write(bytes, 0, length);
+        try{
+            ZipEntry zipEntry = new ZipEntry(fileName);
+            zipOut.putNextEntry(zipEntry);
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = fis.read(bytes)) >= 0) {
+                zipOut.write(bytes, 0, length);
+            }
+            fis.close();
         }
-        fis.close();
+        catch(Exception e){
+            fis.close();
+            zipOut.closeEntry();
+        }
+
     }
+
 }
