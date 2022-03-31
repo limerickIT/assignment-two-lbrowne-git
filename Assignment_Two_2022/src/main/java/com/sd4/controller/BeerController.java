@@ -3,9 +3,13 @@ package com.sd4.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import com.lowagie.text.DocumentException;
 import com.sd4.model.Beer;
 import com.sd4.repository.BeerRepository;
 import com.sd4.utilities.ContentHandler;
+import com.sd4.utilities.PDFGeneratorHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,8 +60,14 @@ public class BeerController {
     }
     
     @RequestMapping(value="/{beerId}", method=RequestMethod.DELETE)
-    public void DeleteBeers(@PathVariable(value = "beerId") Long id) {
-        beerRepository.deleteById(id);
+    public String DeleteBeers(@PathVariable(value = "beerId") Long id) {
+        try{
+            beerRepository.deleteById(id);
+            return "beer "+id +" has been successfully delted"; 
+        }
+        catch(Exception e){
+            return "Error occured deleting beer";
+        }
     }
 
     @RequestMapping(value="/image/{beerId}", method=RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE )
@@ -73,4 +83,16 @@ public class BeerController {
     public Object GetImages() throws IOException{
             return ContentHandler.GetCompressedFolder("");
     }
+
+    @RequestMapping(value="/pdf/{beerId}", method=RequestMethod.GET,  produces="application/pdf" )
+    public void GetPDF(HttpServletResponse response, @PathVariable(value ="beerId") Long id) throws IOException, DocumentException{
+    
+            String headerKey = "Content-Disposition";
+            String headerValue = "attachment; filename=pdf_beer.pdf";
+            response.setHeader(headerKey, headerValue);
+            PDFGeneratorHandler pHandler = new PDFGeneratorHandler();
+            pHandler.CreateBeerPDF(response, id);
+        }
+
+
 }
