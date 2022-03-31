@@ -14,8 +14,8 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 public class QRGeneratorHandler {
 
-    private final static int width = 400;
-    private final static int height = 400;
+    private static final int width = 400;
+    private static final int height = 400;
     private static final String filePath =  "./src/main/resources/static/img/QRCode.png";
 
 
