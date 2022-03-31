@@ -1,0 +1,316 @@
+{
+	"info": {
+		"_postman_id": "5c70b1c1-66f8-4fe8-9797-a54588d3b029",
+		"name": "Assignment Two",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Beers",
+			"item": [
+				{
+					"name": "Get A Beer",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/beer/3774",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"beer",
+								"3774"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Beers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/beer/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"beer",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Beer Image",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/beer/image/2?size=large",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"beer",
+								"image",
+								"2"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "large"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Beer Images",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/beer/images/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"beer",
+								"images",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Beer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/beer/3376",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"beer",
+								"3376"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Beer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/beer/?id=6000&brewery_id=119&name=Tester&cat_id=4&style_id=4&ibu=6.5&abv=2.1&srm=8.7&description=sample text for a sample beer&last_mod=null&image=1.jpg&buy_price=4.20&sell_price=7.60",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"beer",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "6000"
+								},
+								{
+									"key": "brewery_id",
+									"value": "119"
+								},
+								{
+									"key": "name",
+									"value": "Tester"
+								},
+								{
+									"key": "cat_id",
+									"value": "4"
+								},
+								{
+									"key": "style_id",
+									"value": "4"
+								},
+								{
+									"key": "ibu",
+									"value": "6.5"
+								},
+								{
+									"key": "abv",
+									"value": "2.1"
+								},
+								{
+									"key": "srm",
+									"value": "8.7"
+								},
+								{
+									"key": "description",
+									"value": "sample text for a sample beer"
+								},
+								{
+									"key": "last_mod",
+									"value": "null"
+								},
+								{
+									"key": "image",
+									"value": "1.jpg"
+								},
+								{
+									"key": "buy_price",
+									"value": "4.20"
+								},
+								{
+									"key": "sell_price",
+									"value": "7.60"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Brewery",
+			"item": [
+				{
+					"name": "Get Breweries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/brewery/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"brewery",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get A Brewery",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/brewery/117",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"brewery",
+								"117"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Map",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/brewery/maps/119",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"brewery",
+								"maps",
+								"119"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get QR",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/brewery/qr/119",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"brewery",
+								"qr",
+								"119"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
