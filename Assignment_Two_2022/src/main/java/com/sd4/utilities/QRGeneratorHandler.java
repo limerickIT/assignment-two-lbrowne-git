@@ -16,7 +16,6 @@ public class QRGeneratorHandler {
 
     private static final int width = 400;
     private static final int height = 400;
-    private static final String filePath =  "./src/main/resources/static/img/QRCode.png";
 
 
     /** Creates & stores QR image.
