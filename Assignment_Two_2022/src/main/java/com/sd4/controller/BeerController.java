@@ -65,11 +65,8 @@ public class BeerController {
         return beer;
     }
     
-    @RequestMapping(value="/{beerId}", method=RequestMethod.POST)
-    public String AddBeer(@PathVariable(value = "beerId") @RequestBody Beer beer){
-        beer.add(Link.of("/beer/"+beer.getID()),
-                Link.of("Brewery","/brewery/"+beer.getBreweryID()),
-                Link.of("Image","beers/image/"+beer.getID()));
+    @RequestMapping(value="/", method=RequestMethod.POST)
+    public String AddBeer(@RequestBody Beer beer){
         if(!beerRepository.save(beer).equals(null)){
             return "Beer has been added to db";
         }
